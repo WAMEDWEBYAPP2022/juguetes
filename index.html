@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mi página web</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.producto {
+			border: 1px solid black;
+			padding: 10px;
+			margin-bottom: 10px;
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.producto h2 {
+			margin-top: 0;
+		}
+
+		.producto img {
+			float: left;
+			margin-right: 10px;
+			max-width: 100%;
+			height: auto;
+		}
+
+		.producto p {
+			margin-top: 0;
+			font-weight: bold;
+           
+		}
+
+		.filtro {
+			margin-bottom: 10px;
+		}
+
+		.filtro label {
+			font-weight: bold;
+			margin-right: 10px;
+		}
+
+        .busqueda {
+            margin-bottom: 10px;
+        }
+
+        .busqueda label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .busqueda input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .busqueda input[type="submit"] {
+            padding: 5px 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .busqueda input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="filtro">
+    <label for="categoria">Categoría:</label>
+    <select id="categoria">
+        <option value="">Todos los Juguetes</option>
+        <option value="varon">Jueguete Varon</option>
+        <option value="nena">Juguete Nena</option>
+    </select>
+</div>
+
+<div class="busqueda">
+    <label for="palabra">Buscar:</label>
+    <input type="text" id="palabra" name="palabra">
+    <input type="submit" value="Buscar">
+</div>
+
+<div class="producto" data-categoria="varon" data-busqueda="BINGO FAMILIAR PLASTICO">
+    <img src="https://i.postimg.cc/CxH8pN86/60954.jpg" alt="Producto 1">
+    <h2>#*OF.D*BINGO FAMILIAR PLASTICO ECO B.</h2>
+    <p>Precio: $250</p>
+    <p>Codigo j1.</p>
+</div>
+
+<div class="producto" data-categoria="varon" data-busqueda="GENERALA MINI BOLSA">
+    <img src="https://i.postimg.cc/kgc0Z2JP/610825.jpg" alt="Producto 2">
+    <h2>GENERALA MINI BOLSA</h2>
+    <p>Precio: $200</p>
+    <p>Codigo j2</p>
+</div>
+
+<div class="producto" data-categoria="nena" data-busqueda="GENERALA TRADICIONAL CAJA">
+    <img src="https://i.postimg.cc/s2GJWL0H/611394.jpg" alt="Producto 3">
+    <h2>GENERALA TRADICIONAL CAJA</h2>
+    <p>Precio: $300</p>
+    <p>Codigo j3</p>
+</div>
+
+<script>
+    var categoria = document.getElementById('categoria');
+    var palabra = document.getElementById('palabra');
+    var productos = document.querySelectorAll('.producto');
+
+    categoria.addEventListener('change', function() {
+
+        var valorCategoria = this.value;
+
+        productos.forEach(function(producto) {
+            if (valorCategoria === '') {
+                producto.style.display = 'block';
+            } else if (producto.getAttribute('data-categoria') === valorCategoria) {
+                producto.style.display = 'block';
+            } else {
+                producto.style.display = 'none';
+            }
+        });
+    });
+
+    document.querySelector('.busqueda input[type=submit]').addEventListener('click', function(e) {
+
+        e.preventDefault();
+
+        var valorPalabra = palabra.value.toLowerCase();
+
+        productos.forEach(function(producto) {
+
+            var valorBusqueda = producto.getAttribute('data-busqueda').toLowerCase();
+
+            if (valorBusqueda.indexOf(valorPalabra) !== -1) {
+                producto.style.display = 'block';
+            } else {
+                producto.style.display = 'none';
+            }
+        });
+    });
+
+</script>
+
+</body>
+</html>
